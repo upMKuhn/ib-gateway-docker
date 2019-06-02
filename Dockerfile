@@ -53,6 +53,8 @@ ADD ./vnc/xvfb_init /etc/init.d/xvfb
 ADD ./vnc/vnc_init /etc/init.d/vnc
 ADD ./vnc/xvfb-daemon-run /usr/bin/xvfb-daemon-run
 
+EXPOSE 5901 4003 4001
+
 RUN chmod -R u+x runscript.sh \
   && chmod -R 777 /usr/bin/xvfb-daemon-run \
   && chmod 777 /etc/init.d/xvfb \
