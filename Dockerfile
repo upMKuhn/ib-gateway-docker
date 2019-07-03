@@ -1,5 +1,6 @@
-FROM ubuntu:18.04
-MAINTAINER Mike Ehrenberg <mvberg@gmail.com>
+FROM ubuntu:16.04
+
+LABEL maintainer="Mike Ehrenberg <mvberg@gmail.com>"
 
 RUN  apt-get update \
   && apt-get install -y wget \
@@ -11,8 +12,7 @@ RUN  apt-get update \
 	&& apt-get install -y x11vnc \
   && apt-get install -y socat \
   && apt-get install -y software-properties-common \
-  && apt-get install -y default-jre \
-  && apt-get install - dos2unix
+  && apt-get install -y dos2unix
 
 # Setup IB TWS
 RUN mkdir -p /opt/TWS
@@ -31,12 +31,6 @@ WORKDIR /
 
 # Install TWS
 RUN yes n | /opt/TWS/ibgateway-latest-standalone-linux-x64-v974.4g.sh
-
-#CMD yes
-
-# Launch a virtual screen (this seems to be broken)
-#RUN Xvfb :1 -screen 0 1024x768x24 2>&1 >/dev/null &
-#RUN export DISPLAY=:1
 
 ENV DISPLAY :0
 
