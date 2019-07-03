@@ -1,4 +1,4 @@
-FROM ubuntu:16.04
+FROM ubuntu:18.04
 MAINTAINER Mike Ehrenberg <mvberg@gmail.com>
 
 RUN  apt-get update \
@@ -10,7 +10,9 @@ RUN  apt-get update \
   && apt-get install -y libxi6 \
 	&& apt-get install -y x11vnc \
   && apt-get install -y socat \
-  && apt-get install -y software-properties-common
+  && apt-get install -y software-properties-common \
+  && apt-get install -y default-jre \
+  && apt-get install - dos2unix
 
 # Setup IB TWS
 RUN mkdir -p /opt/TWS
@@ -24,16 +26,6 @@ WORKDIR /opt/IBController/
 RUN wget -q http://cdn.quantconnect.com/interactive/IBController-QuantConnect-3.2.0.5.zip
 RUN unzip ./IBController-QuantConnect-3.2.0.5.zip
 RUN chmod -R u+x *.sh && chmod -R u+x Scripts/*.sh
-
-# Install Java 8 TODO maybe just use "from:java8"
-RUN \
-  echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | debconf-set-selections && \
-  add-apt-repository -y ppa:webupd8team/java && \
-  apt-get update && \
-  apt-get install -y oracle-java8-installer && \
-  apt-get install -y dos2unix && \
-  rm -rf /var/lib/apt/lists/* && \
-  rm -rf /var/cache/oracle-jdk8-installer
 
 WORKDIR /
 
@@ -59,6 +51,8 @@ RUN chmod -R u+x runscript.sh \
   && chmod -R 777 /usr/bin/xvfb-daemon-run \
   && chmod 777 /etc/init.d/xvfb \
   && chmod 777 /etc/init.d/vnc
+
+# RUN add-apt-repository universe && apt-get update &&  apt-get install dos2unix
 
 RUN dos2unix /usr/bin/xvfb-daemon-run \
   && dos2unix /etc/init.d/xvfb \
