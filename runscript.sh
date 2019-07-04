@@ -1,6 +1,5 @@
 #!/bin/bash
 
-rm -rf /.vnc
 xvfb-daemon-run  /opt/IBController/Scripts/DisplayBannerAndLaunch.sh &
 # Tail latest in log dir
 sleep 1
