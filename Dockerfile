@@ -3,6 +3,18 @@ FROM ubuntu:16.04
 
 LABEL maintainer="Mike Ehrenberg <mvberg@gmail.com>"
 
+ENV JAVA_PATH /opt/i4j_jres/1.8.0_152/bin
+ENV LOG_PATH /opt/IBController/Logs
+ENV TWS_PATH /root/Jts
+ENV IBC_PATH /opt/IBController
+ENV IBC_INI /root/IBController/IBController.ini
+ENV TWS_MAJOR_VRSN 974
+ENV TRADING_MODE paper
+ENV TWSUSERID fdemo
+ENV TWSPASSWORD demouser
+ENV TZ UTC
+ENV APP GATEWAY
+
 RUN  apt-get update \
   && apt-get install -y wget \
   && apt-get install -y unzip \
