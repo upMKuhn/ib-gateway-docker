@@ -1,4 +1,5 @@
-FROM ubuntu:18.04
+
+FROM ubuntu:16.04
 
 LABEL maintainer="Mike Ehrenberg <mvberg@gmail.com>"
 
@@ -39,14 +40,10 @@ ADD ./vnc/xvfb_init /etc/init.d/xvfb
 ADD ./vnc/vnc_init /etc/init.d/vnc
 ADD ./vnc/xvfb-daemon-run /usr/bin/xvfb-daemon-run
 
-EXPOSE 5901 4003 4001
-
 RUN chmod -R u+x runscript.sh \
   && chmod -R 777 /usr/bin/xvfb-daemon-run \
   && chmod 777 /etc/init.d/xvfb \
   && chmod 777 /etc/init.d/vnc
-
-# RUN add-apt-repository universe && apt-get update &&  apt-get install dos2unix
 
 RUN dos2unix /usr/bin/xvfb-daemon-run \
   && dos2unix /etc/init.d/xvfb \
@@ -58,3 +55,5 @@ COPY ./ib/IBController.ini /root/IBController/IBController.ini
 COPY ./ib/jts.ini /root/Jts/jts.ini
 
 CMD bash runscript.sh
+
+EXPOSE 5901 4003 4001
